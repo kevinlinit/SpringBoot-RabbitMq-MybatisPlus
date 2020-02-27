@@ -1,0 +1,2 @@
+# SpringBoot-RabbitMq-MybatisPlus
+一个用SpringBoot整合RabbitMq和MybatisPlus的项目
