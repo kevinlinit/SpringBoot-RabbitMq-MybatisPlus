@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITaskCoreService extends IService<TaskCore> {
 
-    public String createTask(TaskCore taskCore);
+    public void createTask(TaskCore taskCore);
 }

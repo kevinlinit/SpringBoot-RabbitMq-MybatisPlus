@@ -1,4 +1,4 @@
-package com.master.base;
+package com.master.controller;
 
 import com.master.utils.ValidateUtil;
 import org.apache.commons.lang3.StringUtils;

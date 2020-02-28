@@ -12,6 +12,8 @@ import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 @Component
@@ -47,6 +49,16 @@ public class RabbitTaskSender {
 
     //发送消息方法调用: 构建自定义对象消息
     public String sendTask(TaskCore taskCore) {
+        //task Current Time
+        LocalDateTime taskTime = LocalDateTime.now();
+        // log insert
+        BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
+        brokerMessageLog.setId(taskCore.getMessageId());
+        //save task message as json
+        brokerMessageLog.setMessage(FastJsonConvertUtil.convertObjectToJSON(taskCore.getContents()));
+        brokerMessageLog.setStatus(Constants.SENDING);
+        brokerMessageLog.setNextRetry(taskTime.plus(Constants.TIMEOUT, ChronoUnit.MINUTES));
+        brokerMessageLogMapper.insert(brokerMessageLog);
 
         Map<String, Object> contents = FastJsonConvertUtil.convertJSONToObject(taskCore.getContents(), Map.class);
         String messageId = (String) contents.get("messageId");
@@ -55,7 +67,7 @@ public class RabbitTaskSender {
             //消息唯一ID
             CorrelationData correlationData = new CorrelationData(messageId);
             try {
-                rabbitTemplate.convertAndSend("task-exchange", "task.ABC", contents, correlationData);
+                rabbitTemplate.convertAndSend("task-exchange", "task.notification", contents, correlationData);
             } catch (Exception e) {
                 log.error(e.getMessage());
             }

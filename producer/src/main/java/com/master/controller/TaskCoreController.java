@@ -9,8 +9,6 @@ import com.master.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.master.base.BaseController;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -43,10 +41,10 @@ public class TaskCoreController extends BaseController {
         content.put("messageId", messageId);
 
         TaskCore taskCore = new TaskCore();
-        taskCore = JsonUtil.jsonMapToBean(params,TaskCore.class);
+        taskCore = JsonUtil.jsonMapToBean(params, TaskCore.class);
         taskCore.setMessageId(messageId);
         taskCore.setContents(FastJsonConvertUtil.convertObjectToJSON(content));
-
-        return taskCoreService.createTask(taskCore);
+        taskCoreService.createTask(taskCore);
+        return messageId;
     }
 }

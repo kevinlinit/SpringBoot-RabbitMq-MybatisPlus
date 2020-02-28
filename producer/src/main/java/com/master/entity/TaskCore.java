@@ -4,10 +4,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -15,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- *
  * @author linqiyuan
  * @since 2020-02-27
  */
@@ -27,14 +23,14 @@ public class TaskCore implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id",type = IdType.UUID )
+    @TableId(value = "id", type = IdType.UUID)
     private String id;
 
     private String contents;
 
     private String messageId;
 
-    @TableField(value = "schedule_time")
+    @TableField(value = "schedule_time", strategy = FieldStrategy.IGNORED)
     private LocalDateTime scheduleTime;
 
 

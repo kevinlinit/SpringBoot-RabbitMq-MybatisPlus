@@ -17,7 +17,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author linqiyuan
@@ -36,26 +36,16 @@ public class TaskCoreServiceImpl extends ServiceImpl<TaskCoreMapper, TaskCore> i
     @Autowired
     private TaskCoreMapper taskCoreMapper;
 
-    public String createTask(TaskCore taskCore) {
-        // task current time
-        LocalDateTime taskTime = LocalDateTime.now();
+    public void createTask(TaskCore taskCore) {
 
         // task insert
         taskCoreMapper.insert(taskCore);
+
         // task message sender
+        if (null == taskCore.getScheduleTime()) {
+            rabbitTaskSender.sendTask(taskCore);
+        }
 
-        // log insert
-        BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
-        brokerMessageLog.setId(taskCore.getMessageId());
-        //save task message as json
-        brokerMessageLog.setMessage(FastJsonConvertUtil.convertObjectToJSON(taskCore.getContents()));
-        brokerMessageLog.setStatus("0");
-        brokerMessageLog.setNextRetry(taskTime.plus(Constants.TIMEOUT, ChronoUnit.MINUTES));
-        brokerMessageLog.setCreateTime(LocalDateTime.now());
-        brokerMessageLog.setUpdateTime(LocalDateTime.now());
-        brokerMessageLogMapper.insert(brokerMessageLog);
-
-        return rabbitTaskSender.sendTask(taskCore);
-
+        return;
     }
 }

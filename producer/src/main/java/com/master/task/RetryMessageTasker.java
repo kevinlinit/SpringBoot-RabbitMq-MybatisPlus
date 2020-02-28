@@ -38,9 +38,7 @@ public class RetryMessageTasker {
          * pull status = 0 and timeout message
          * 查询消息状态为0(发送中) 且已经超时的消息集合
          */
-        QueryWrapper<BrokerMessageLog> wrapper = new QueryWrapper<BrokerMessageLog>();
-        wrapper.eq("status", Constants.SENDING).le("next_retry", LocalDateTime.now());
-        List<BrokerMessageLog> list = brokerMessageLogMapper.selectList(wrapper);
+        List<BrokerMessageLog> list = getTimeoutAndSendingMessage();
 
         list.forEach(messageLog -> {
             if (messageLog.getTryCount() >= 3) {
@@ -59,5 +57,11 @@ public class RetryMessageTasker {
             }
         });
 
+    }
+
+    private List<BrokerMessageLog> getTimeoutAndSendingMessage(){
+        QueryWrapper<BrokerMessageLog> wrapper = new QueryWrapper<BrokerMessageLog>();
+        wrapper.eq("status", Constants.SENDING).le("next_retry", LocalDateTime.now());
+        return brokerMessageLogMapper.selectList(wrapper);
     }
 }
