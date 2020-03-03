@@ -1,12 +1,10 @@
 package com.master.mapper;
 
 import com.master.SuperMapper;
-import com.master.entity.BrokerMessageLog;
-import com.master.entity.TaskCore;
+import com.master.common.entity.BrokerMessageLog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *

@@ -1,11 +1,12 @@
 package com.master.controller;
 
 
+import com.master.common.controller.BaseController;
 import com.master.entity.TaskCore;
 import com.master.service.ITaskCoreService;
-import com.master.utils.DdUtil;
-import com.master.utils.FastJsonConvertUtil;
-import com.master.utils.JsonUtil;
+import com.master.common.utils.DdUtil;
+import com.master.common.utils.FastJsonConvertUtil;
+import com.master.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

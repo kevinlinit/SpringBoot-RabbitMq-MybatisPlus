@@ -1,8 +1,8 @@
 package com.master.task;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.master.constant.Constants;
-import com.master.entity.BrokerMessageLog;
+import com.master.common.constant.Constants;
+import com.master.common.entity.BrokerMessageLog;
 import com.master.mapper.BrokerMessageLogMapper;
 import com.master.producer.RabbitSender;
 import lombok.extern.slf4j.Slf4j;

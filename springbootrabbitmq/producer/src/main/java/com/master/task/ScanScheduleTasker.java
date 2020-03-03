@@ -1,13 +1,8 @@
 package com.master.task;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.master.constant.Constants;
-import com.master.entity.BrokerMessageLog;
 import com.master.entity.TaskCore;
-import com.master.mapper.BrokerMessageLogMapper;
 import com.master.mapper.TaskCoreMapper;
-import com.master.producer.RabbitSender;
 import com.master.producer.RabbitTaskSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Description: 扫描定时任务

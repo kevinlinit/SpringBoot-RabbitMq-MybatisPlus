@@ -1,11 +1,11 @@
 package com.master.producer;
 
-import com.master.constant.Constants;
-import com.master.entity.BrokerMessageLog;
+import com.master.common.constant.Constants;
+import com.master.common.entity.BrokerMessageLog;
 import com.master.entity.TaskCore;
 import com.master.mapper.BrokerMessageLogMapper;
 import com.master.mapper.TaskCoreMapper;
-import com.master.utils.FastJsonConvertUtil;
+import com.master.common.utils.FastJsonConvertUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
