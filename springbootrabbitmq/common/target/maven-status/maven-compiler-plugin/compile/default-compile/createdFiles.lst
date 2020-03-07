@@ -4,7 +4,6 @@ com/master/common/service/IdempotentService.class
 com/master/common/utils/ValidateUtil.class
 com/master/common/utils/StrUtil.class
 com/master/common/CommonApplication.class
-com/master/common/SuperMapper.class
 com/master/common/MainConfig.class
 com/master/common/producer/RabbitSender$2.class
 com/master/common/producer/RabbitSender.class

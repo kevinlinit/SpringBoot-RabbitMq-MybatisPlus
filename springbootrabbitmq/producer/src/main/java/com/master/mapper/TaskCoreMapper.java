@@ -1,6 +1,6 @@
 package com.master.mapper;
 
-import com.master.common.SuperMapper;
+import com.master.SuperMapper;
 import com.master.entity.TaskCore;
 
 /**
