@@ -1,0 +1,5 @@
+/common/src/main/resources/rabbitmq-common-dev.properties
+/producer/target/
+/common/target/
+/consumer/target/
+/log/

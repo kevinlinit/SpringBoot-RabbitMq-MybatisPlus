@@ -20,10 +20,4 @@ public class MybatisPlusConfig {
         scannerConfigurer.setBasePackage("com.master.mapper*");
         return scannerConfigurer;
     }
-
-    @Bean
-    public H2KeyGenerator getH2KeyGenerator() {
-        return new H2KeyGenerator();
-    }
-
 }

@@ -1,14 +1,11 @@
 package com.master.mapper;
 
-import com.master.SuperMapper;
+import com.master.common.SuperMapper;
 import com.master.entity.TaskCore;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author linqiyuan

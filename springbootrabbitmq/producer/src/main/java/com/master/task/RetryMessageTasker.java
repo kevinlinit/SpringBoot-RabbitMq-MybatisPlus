@@ -2,9 +2,9 @@ package com.master.task;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.master.common.constant.Constants;
-import com.master.common.entity.BrokerMessageLog;
+import com.master.common.producer.RabbitSender;
+import com.master.entity.BrokerMessageLog;
 import com.master.mapper.BrokerMessageLogMapper;
-import com.master.producer.RabbitSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -59,7 +59,7 @@ public class RetryMessageTasker {
 
     }
 
-    private List<BrokerMessageLog> getTimeoutAndSendingMessage(){
+    private List<BrokerMessageLog> getTimeoutAndSendingMessage() {
         QueryWrapper<BrokerMessageLog> wrapper = new QueryWrapper<BrokerMessageLog>();
         wrapper.eq("status", Constants.SENDING).le("next_retry", LocalDateTime.now());
         return brokerMessageLogMapper.selectList(wrapper);

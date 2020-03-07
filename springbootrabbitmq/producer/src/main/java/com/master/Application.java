@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "com.master.service",
         "com.master.producer",
         "com.master.task"})
+@PropertySource("classpath:rabbitmq-common-${spring.profiles.active}.properties")
 public class Application {
 
     protected final static Logger logger = LoggerFactory.getLogger(Application.class);

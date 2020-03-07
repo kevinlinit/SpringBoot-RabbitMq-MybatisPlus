@@ -6,6 +6,7 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @ComponentScan(basePackages = {
         "com.master.rabbitmq.consumer"})
+@PropertySource("classpath:rabbitmq-common-${spring.profiles.active}.properties")
 public class ConsumerApplication {
 
     protected final static Logger logger = LoggerFactory.getLogger(ConsumerApplication.class);

@@ -1,11 +1,12 @@
 package com.master.producer;
 
 import com.master.common.constant.Constants;
-import com.master.common.entity.BrokerMessageLog;
+import com.master.common.producer.RabbitSender;
+import com.master.common.utils.FastJsonConvertUtil;
+import com.master.entity.BrokerMessageLog;
 import com.master.entity.TaskCore;
 import com.master.mapper.BrokerMessageLogMapper;
 import com.master.mapper.TaskCoreMapper;
-import com.master.common.utils.FastJsonConvertUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
@@ -14,15 +15,16 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
 @Slf4j
 public class RabbitTaskSender {
 
-    //自动注入RabbitTemplate模板类
+    //注入RabbitSender
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private RabbitSender rabbitSender;
 
     @Autowired
     private BrokerMessageLogMapper brokerMessageLogMapper;
@@ -62,16 +64,14 @@ public class RabbitTaskSender {
 
         Map<String, Object> contents = FastJsonConvertUtil.convertJSONToObject(taskCore.getContents(), Map.class);
         String messageId = (String) contents.get("messageId");
-        {
-            rabbitTemplate.setConfirmCallback(confirmCallback);
-            //消息唯一ID
-            CorrelationData correlationData = new CorrelationData(messageId);
-            try {
-                rabbitTemplate.convertAndSend("task-exchange", "task.notification", contents, correlationData);
-            } catch (Exception e) {
-                log.error(e.getMessage());
-            }
+        Map<String, Object> properties = new HashMap<>();
+
+        try {
+            rabbitSender.send(contents, properties);
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
+
         return messageId;
     }
 
